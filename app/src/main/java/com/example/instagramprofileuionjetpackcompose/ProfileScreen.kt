@@ -3,6 +3,7 @@ package com.example.instagramprofileuionjetpackcompose
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,6 +37,29 @@ fun ProfileScreen() {
         Spacer(modifier = Modifier.height(25.dp))
         ButtonSection(modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(25.dp))
+        HighlightSection(
+            highlight = listOf(
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.youtube),
+                    text = "YouTube"
+                ),
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.qa),
+                    text = "QA"
+                ),
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.discord),
+                    text = "Discord"
+                ),
+                StoryHighlight(
+                    image = painterResource(id = R.drawable.telegram),
+                    text = "Telegram"
+                )
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp)
+        )
     }
 
 }
@@ -284,6 +309,36 @@ fun ActionButton(
                 contentDescription = null,
                 tint = Color.Black
             )
+        }
+    }
+}
+
+@Composable
+fun HighlightSection(
+    modifier: Modifier = Modifier,
+    highlight: List<StoryHighlight>
+){
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        items(highlight.size) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.padding(end = 15.dp)
+            ) {
+                RoundImage(
+                    image = highlight[it].image,
+                    modifier = modifier.size(70.dp)
+                )
+                Text(
+                    text = highlight[it].text,
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }
